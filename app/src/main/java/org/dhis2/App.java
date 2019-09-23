@@ -14,6 +14,8 @@ import androidx.multidex.MultiDexApplication;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.stetho.Stetho;
 import com.google.android.gms.security.ProviderInstaller;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.mapbox.mapboxsdk.Mapbox;
 
 import org.dhis2.data.dagger.PerActivity;
@@ -104,6 +106,21 @@ public class App extends MultiDexApplication implements Components {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             upgradeSecurityProvider();
+        //first
+        FirebaseOptions optionsMain = new FirebaseOptions.Builder()
+                .setApplicationId("1:82834045260:android:9f732326b0b9e7c6") // Required for Analytics.
+                .setApiKey("AIzaSyBauNfck7AWHYUGH6lM0KF_FITWGdbZ0c0") // Required for Auth.
+                .setDatabaseUrl("https://dhis2-android-capture-ap-50d48.firebaseio.com/") // Required for RTDB.
+                .build();
+        FirebaseApp.initializeApp(this, optionsMain);
+
+        //secondary
+        FirebaseOptions optionsSecondary = new FirebaseOptions.Builder()
+                .setApplicationId("1:370253672409:android:c1a0efd546345e2d7a73c8") // Required for Analytics.
+                .setApiKey("AIzaSyBR0OluSWwlq55Zfn8LBLB6ls7fEsbLFiY") // Required for Auth.
+                .setDatabaseUrl("https://dhis-secondary.firebaseio.com/") // Required for RTDB.
+                .build();
+        FirebaseApp.initializeApp(this, optionsSecondary, "secondary");
 
 
         Scheduler asyncMainThreadScheduler = AndroidSchedulers.from(Looper.getMainLooper(), true);

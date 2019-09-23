@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.dhis2.BuildConfig;
 import org.dhis2.Components;
 import org.dhis2.R;
@@ -45,7 +47,7 @@ public class AboutFragment extends FragmentGlobalAbstract implements AboutContra
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         aboutBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_about, container, false);
         aboutBinding.setPresenter(presenter);
-
+        Crashlytics.getInstance().crash();
         aboutBinding.aboutMore.setMovementMethod(LinkMovementMethod.getInstance());
         aboutBinding.aboutGit.setMovementMethod(LinkMovementMethod.getInstance());
         aboutBinding.aboutDev.setMovementMethod(LinkMovementMethod.getInstance());
